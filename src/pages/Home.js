@@ -5,13 +5,13 @@ export default function Home() {
     return (
         <article className="athelas">
             <div className="vh-100 dt w-100 tc bg-dark-gray white cover"
-                style={{ background: "url('/Book1.jpg') no-repeat center" }}>
+                style={{ background: "url('/Book 1.jpg') no-repeat center" }}>
                 <div className="dtc v-mid">
                     <header className="white-70">
-                        <h2 className="f6 fw1 ttu tracked mb2 lh-title">Issue One</h2>
+                        <h2 className="f6 fw1 ttu bg-black tracked mb2 lh-title">Issue One</h2>
                         <h3 className="f6 fw1 lh-title"></h3>
                     </header>
-                    <h1 className="f1 f-headline-l fw1 i white-60">The Basics of Weight Loss/Gain</h1>
+                    <h1 className="f1 f-headline-l fw1 i white-60">The Secrets of Weight Gain And Weight Loss</h1>
                     <blockquote className="ph0 mh0 measure f4 lh-copy center">
                         <p className="fw1 white-70">
                             It's simple!
