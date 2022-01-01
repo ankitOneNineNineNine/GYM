@@ -4,10 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//redux
+
+import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger';
+import { setUser } from './state/reducers';
+
+const rootReducer = combineReducers({ user: setUser })
+const logger = createLogger();
+
+const store = createStore(rootReducer, applyMiddleware(logger, thunk))
+
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
