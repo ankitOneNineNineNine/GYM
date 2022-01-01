@@ -6,7 +6,7 @@ import { authed } from '../../common/authed';
 export default function Nav1() {
     const user = useSelector(state => state.user)
     return (
-        <div className='flex justify-around ma2'>
+        <div className='flex justify-around ma3'>
             <div>
                 <NavLink to='/'>
                     <span className='v-mid'>My Logo</span>

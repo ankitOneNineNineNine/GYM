@@ -23,10 +23,46 @@ export default function Navbar() {
         <nav className="pa2 pa3-ns">
             <Nav1 />
             <div style={{ zIndex: 1000 }} className={"tc pb3 pv4 bg-white " + classforNav}>
-                <NavLink className="link dim gray f6 f5-ns dib mr3" to="/" title="Home">Home</NavLink>
-                <NavLink className="link dim gray f6 f5-ns dib mr3" to="/bio" title="Bio">My Bio</NavLink>
-                <NavLink className="link dim gray f6 f5-ns dib mr3" to="/coaching" title="About">Coaching</NavLink>
-                <NavLink className="link dim gray f6 f5-ns dib mr3" to="/books" title="Books">Books</NavLink>
+                <NavLink
+                    style={
+                        ({ isActive }) => {
+                            return isActive ? {
+                                boxShadow: '0 0 5px black'
+                            }
+                                : null
+                        }
+                    }
+                    className="link dim pa1 gray f6 f5-ns dib mr3" to="/" title="Home">Home</NavLink>
+                <NavLink
+                    style={
+                        ({ isActive }) => {
+                            return isActive ? {
+                                boxShadow: '0 0 5px black'
+                            }
+                                : null
+                        }
+                    }
+                    className="link dim pa1 gray f6 f5-ns dib mr3" to="/bio" title="Bio">My Bio</NavLink>
+                <NavLink
+                    style={
+                        ({ isActive }) => {
+                            return isActive ? {
+                                boxShadow: '0 0 5px black'
+                            }
+                                : null
+                        }
+                    }
+                    className="link dim pa1 gray f6 f5-ns dib mr3" to="/coaching" title="About">Coaching</NavLink>
+                <NavLink
+                    style={
+                        ({ isActive }) => {
+                            return isActive ? {
+                                boxShadow: '0 0 5px black'
+                            }
+                                : null
+                        }
+                    }
+                    className="link dim pa1 gray f6 f5-ns dib mr3" to="/books" title="Books">Books</NavLink>
             </div>
         </nav>
     )

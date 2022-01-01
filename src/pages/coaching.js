@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Coaching() {
     return (
-        <>
+        <div>
             <section className="cf flex justify-center w-100 pa2-ns ph4 ">
                 <article className="fl w-100 w-50-m  w-25-ns pa2-ns">
                     <div className="aspect-ratio aspect-ratio--1x1">
@@ -35,44 +35,37 @@ export default function Coaching() {
                 </NavLink>
             </section>
 
-            <article>
+            <article className='ph5'>
                 <h2 className="tc athelas ph3 ph0-l">Some Transformations</h2>
-                <NavLink to="" className="fl w-50 w-25-l link overflow-hidden">
-                    <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                        <div class="white dtc v-mid w-100 h-100 child bg-black-40 pa5">
-                            <h2>Jeorge Washington</h2>
-                            <p>Transformed from Weeight 20kg to 70kg</p>
+                <div className='flex justify-around'>
+                    <NavLink to="" className="w-20 link overflow-hidden">
+                        <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
+                            <div class="white dtc v-mid child bg-black-40 pa5">
+                                <h2>Jeorge Washington</h2>
+                                <p>Transformed from Weeight 20kg to 70kg</p>
+                            </div>
                         </div>
-                    </div>
-                </NavLink>
-                <NavLink to="" className="fl w-50 w-25-l link overflow-hidden">
-                    <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                        <div class="white dtc v-mid w-100 h-100 child bg-black-40 pa5">
-                            <h2>Jeorge Washington</h2>
-                            <p>Transformed from Weeight 20kg to 70kg</p>
+                    </NavLink>
+                    <NavLink to="" className="w-20 link overflow-hidden">
+                        <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
+                            <div class="white dtc v-mid child bg-black-40 pa5">
+                                <h2>Jeorge Washington</h2>
+                                <p>Transformed from Weeight 20kg to 70kg</p>
+                            </div>
                         </div>
-                    </div>
-                </NavLink>
-                <NavLink to="" className="fl w-50 w-25-l link overflow-hidden">
-                    <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                        <div class="white dtc v-mid w-100 h-100 child bg-black-40 pa5">
-                            <h2>Jeorge Washington</h2>
-                            <p>Transformed from Weeight 20kg to 70kg</p>
+                    </NavLink>
+                    <NavLink to="" className="w-20 link overflow-hidden">
+                        <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
+                            <div class="white dtc v-mid child bg-black-40 pa5">
+                                <h2>Jeorge Washington</h2>
+                                <p>Transformed from Weeight 20kg to 70kg</p>
+                            </div>
                         </div>
-                    </div>
-                </NavLink>
-                <NavLink to="" className="fl w-50 w-25-l link overflow-hidden">
-                    <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                        <div class="white dtc v-mid w-100 h-100 child bg-black-40 pa5">
-                            <h2>Jeorge Washington</h2>
-                            <p>Transformed from Weeight 20kg to 70kg</p>
-                        </div>
-                    </div>
-                </NavLink>
+                    </NavLink>
+                </div>
             </article>
-         
 
 
-        </>
+        </div>
     )
 }
