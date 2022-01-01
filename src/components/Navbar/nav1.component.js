@@ -23,10 +23,30 @@ export default function Nav1() {
 
                         :
                         <>
-                            <NavLink className='mh3' to='/signup'>
+                            <NavLink
+                                style={
+                                    ({ isActive }) => {
+                                        return isActive ? {
+                                            boxShadow: '0 0 5px black'
+                                        }
+                                            : null
+                                    }
+                                }
+
+                                className='mh3 pa1' to='/signup'>
                                 <span>Sign Up</span>
                             </NavLink>
-                            <NavLink to='/signin'>
+                            <NavLink
+                                style={
+                                    ({ isActive }) => {
+                                        return isActive ? {
+                                            boxShadow: '0 0 5px black'
+                                        }
+                                            : null
+                                    }
+                                }
+                                className='pa1'
+                                to='/signin'>
                                 <span>Sign In</span>
                             </NavLink>
                         </>
