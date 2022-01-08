@@ -14,20 +14,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const db = getFirestore();
+const db = getFirestore(app);
 
 
 
 const registerWithEmailAndPassword = async (name, email, password) => {
     try {
-        const res = await createUserWithEmailAndPassword(auth, name, email, password);
-        const user = res.user;
-        const doc = await addDoc(collection(db, "users"), {
-            name,
-            email,
-            password
-        })
-        alert(doc.id)
+        const res = await createUserWithEmailAndPassword(auth, email, password)
+        console.log(res)
     } catch (err) {
         console.error(err);
         alert(err)
