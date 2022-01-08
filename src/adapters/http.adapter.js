@@ -20,15 +20,7 @@ export const GET = (url, authed = false) => {
 
 
 export const POST = (url, data, type, authed = false) => {
-    return http({
-        method: 'POST',
-        url,
-        data,
-        headers: {
-            'Content-Type': type ? type : 'application/json',
-            'Authorization': authed ? localStorage.getItem('hash') : null
-        }
-    }).then(result => result.data)
+console.log('here', url, data)
 }
 
 export const PUT = (url, data, type, authed = false) => {

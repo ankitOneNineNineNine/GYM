@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { POST } from '../adapters/http.adapter';
+import { registerWithEmailAndPassword } from '../firebase/setup';
 
 export default function Signup() {
     const [credentials, setCredentials] = useState({});
 
     const handleChange = (e) => {
-        let [name, value] = e.target;
-        setCredentials(prev => {
-            return {
-                ...prev,
-                name: value,
-            }
-        })
+        let { name, value } = e.target;
+        setCredentials({ ...credentials, [name]: value })
     }
 
 
     const register = async (e) => {
         e.preventDefault();
         try {
-            let data = await POST('/signup', credentials, false, false)
-            console.log(data)
+            registerWithEmailAndPassword(credentials.name, credentials.email, credentials.password)
         }
         catch (e) {
             console.log('e', e)
@@ -41,7 +36,7 @@ export default function Signup() {
 
                     <div className="mt3">
                         <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address" id="email" onChange={handleChange} />
+                        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email" id="email" onChange={handleChange} />
                     </div>
                     <div className="mv3">
                         <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -53,6 +48,7 @@ export default function Signup() {
                     <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign Up" onClick={register} />
                 </div>
                 <div className="lh-copy mt3">
+                    <span>Use Google Instead</span><i className='fas fa-google' />
                     <NavLink to='/signin' className="f6 link dim black db">Sign In</NavLink>
                 </div>
             </form>
