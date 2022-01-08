@@ -47,11 +47,11 @@ export default function Plans() {
             </article>
 
             <h2>Please Fill the form below if you want to hire me as your Personal Trainer!</h2>
-            <div class="pa4-l">
-                <form class="bg-black pa3 center ba white b--black-10">
-                    <fieldset class="cf bn tc w-80 pa0 center">
-                        <legend class="f5 f4-ns mb3 white-80">Enter your details</legend>
-                        <div class="cf pa3">
+            <div className="pa4-l">
+                <form className="bg-black pa3 center ba white b--black-10">
+                    <fieldset className="cf bn tc w-80 pa0 center">
+                        <legend className="f5 f4-ns mb3 white-80">Enter your details</legend>
+                        <div className="cf pa3">
                             <label className="clip mt3" htmlFor="email-address">Email Address</label>
                             <input className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" placeholder="Your Email Address" type="text" name="email-address" value="" id="email-address" />
 
@@ -67,7 +67,7 @@ export default function Plans() {
                         </div>
                         {
                             authed(user) ?
-                                <input class="ml3 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Let's Train"></input>
+                                <input className="ml3 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Let's Train"></input>
                                 :
                                 <p>Please Sign In first!</p>
                         }

@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
-import { setUser } from '../state/reducers';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from '../state/actions';
+import { authed } from '../common/authed';
 
 export default function Signin() {
     const [credentials, setCredentials] = useState({});
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (authed(user)) {
+            navigate('/')
+        }
+    }, [user])
+
 
     const handleChange = (e) => {
-        let [name, value] = e.target;
-        setCredentials(prev => {
-            return {
-                ...prev,
-                name: value,
-            }
-        })
+        let { name, value } = e.target;
+        setCredentials({ ...credentials, [name]: value })
     }
 
 
     const login = (e) => {
         e.preventDefault();
-        dispatch(setUser(credentials))
+        dispatch(setUser({
+            ...credentials,
+            loginWithEmail: true,
+        }));
+
     }
 
 
@@ -43,6 +51,10 @@ export default function Signin() {
                     <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onClick={login} />
                 </div>
                 <div className="lh-copy mt3">
+                    <span>Use Google Instead</span><img width='30px' className='mh3 pointer v-mid br-pill' src='/google.jfif' onClick={() => dispatch(setUser({
+                        ...credentials,
+                        loginWithEmail: false,
+                    }))} />
                     <NavLink to="/signup" className="f6 link dim black db">Sign up</NavLink>
                     <NavLink to="/forgot-password" className="f6 link dim black db">Forgot your password?</NavLink>
                 </div>

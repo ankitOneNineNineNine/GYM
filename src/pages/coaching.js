@@ -40,7 +40,7 @@ export default function Coaching() {
                 <div className='flex justify-around'>
                     <NavLink to="" className="w-20 link overflow-hidden">
                         <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                            <div class="white dtc v-mid child bg-black-40 pa5">
+                            <div className="white dtc v-mid child bg-black-40 pa5">
                                 <h2>Jeorge Washington</h2>
                                 <p>Transformed from Weeight 20kg to 70kg</p>
                             </div>
@@ -48,7 +48,7 @@ export default function Coaching() {
                     </NavLink>
                     <NavLink to="" className="w-20 link overflow-hidden">
                         <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                            <div class="white dtc v-mid child bg-black-40 pa5">
+                            <div className="white dtc v-mid child bg-black-40 pa5">
                                 <h2>Jeorge Washington</h2>
                                 <p>Transformed from Weeight 20kg to 70kg</p>
                             </div>
@@ -56,7 +56,7 @@ export default function Coaching() {
                     </NavLink>
                     <NavLink to="" className="w-20 link overflow-hidden">
                         <div role="img" aria-label="Primer movie" className="hide-child grow aspect-ratio--4x6 " style={{ background: " url(https://s3-us-west-1.amazonaws.com/tachyonsio/img/primer.jpg) no-repeat center center", backgroundSize: "cover", }}>
-                            <div class="white dtc v-mid child bg-black-40 pa5">
+                            <div className="white dtc v-mid child bg-black-40 pa5">
                                 <h2>Jeorge Washington</h2>
                                 <p>Transformed from Weeight 20kg to 70kg</p>
                             </div>

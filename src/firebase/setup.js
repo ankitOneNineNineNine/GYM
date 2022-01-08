@@ -1,35 +1,42 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signOut, getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { collection, getFirestore, addDoc } from 'firebase/firestore'
+import { showSucess } from '../common/toast';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB1eAWp15NVMZyPXvgKSW_SRnuXk-muwR8",
-    authDomn: "gym-website-7de87.firebaseapp.com",
-    projectId: "gym-website-7de87",
-    storageBucket: "gym-website-7de87.appspot.com",
-    messageSenderId: "867320898789",
-    appId: "1:867320898789:web:4e3df5abff19bc4310200c",
-    measurementId: "G-RCMD5WJ3QQ"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messageSenderId: process.env.MESSAGE_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+
 }
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
-
+const provider = new GoogleAuthProvider()
 
 
 const registerWithEmailAndPassword = async (name, email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password)
-        console.log(res)
+        return true;
     } catch (err) {
-        console.error(err);
-        alert(err)
+        return err;
     }
 };
 
-const logout = () => {
-    auth.signOut();
+const logout = async () => {
+    try {
+        signOut(auth);
+        localStorage.clear();
+    }
+    catch (e) {
+        alert(e)
+    }
 };
 
 const sendPasswordResetEmail = async (email) => {
@@ -42,9 +49,10 @@ const sendPasswordResetEmail = async (email) => {
     }
 };
 
-const signInWithEmailAndPassword = async (email, password) => {
+const logInWithEmailAndPassword = async (email, password) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        return userCred.user
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -52,10 +60,24 @@ const signInWithEmailAndPassword = async (email, password) => {
 };
 
 
+const signInWithGoogle = async () => {
+    try {
+        const data = await signInWithPopup(auth, provider);
+        const credential = GoogleAuthProvider.credentialFromResult(data);
+        const token = credential.accessToken;
+        const user = data.user;
+        return user;
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
 export {
     auth,
     db,
     registerWithEmailAndPassword,
-    signInWithEmailAndPassword,
+    logInWithEmailAndPassword,
+    signInWithGoogle,
     logout
 }

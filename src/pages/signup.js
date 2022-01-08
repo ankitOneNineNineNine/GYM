@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { POST } from '../adapters/http.adapter';
-import { registerWithEmailAndPassword } from '../firebase/setup';
+import {useDispatch} from 'react-redux'
+import { showSucess } from '../common/toast';
+import { setUser } from '../state/actions';
+import { registerWithEmailAndPassword, signInWithGoogle } from '../firebase/setup';
 
 export default function Signup() {
     const [credentials, setCredentials] = useState({});
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleChange = (e) => {
         let { name, value } = e.target;
         setCredentials({ ...credentials, [name]: value })
@@ -15,7 +19,11 @@ export default function Signup() {
     const register = async (e) => {
         e.preventDefault();
         try {
-            registerWithEmailAndPassword(credentials.name, credentials.email, credentials.password)
+            const reg = await registerWithEmailAndPassword(credentials.name, credentials.email, credentials.password)
+            if (reg) {
+                showSucess('Please Sign in Now!');
+                navigate('/signin');
+            }
         }
         catch (e) {
             console.log('e', e)
@@ -48,7 +56,10 @@ export default function Signup() {
                     <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign Up" onClick={register} />
                 </div>
                 <div className="lh-copy mt3">
-                    <span>Use Google Instead</span><i className='fas fa-google' />
+                    <span>Use Google Instead</span><img width='30px' className='mh3 pointer v-mid br-pill' src='/google.jfif' onClick={() => dispatch(setUser({
+                        ...credentials,
+                        loginWithEmail: false,
+                    }))} />
                     <NavLink to='/signin' className="f6 link dim black db">Sign In</NavLink>
                 </div>
             </form>
