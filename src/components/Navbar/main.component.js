@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Nav1 from './Navbar/nav1.component';
+import Nav1 from './nav1.component';
 export default function Navbar() {
     const [classforNav, setClassforNav] = useState('');
     const handleScroll = (e) => {

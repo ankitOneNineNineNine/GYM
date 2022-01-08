@@ -4,7 +4,7 @@ import { POST } from '../adapters/http.adapter';
 import {useDispatch} from 'react-redux'
 import { showSucess } from '../common/toast';
 import { setUser } from '../state/actions';
-import { registerWithEmailAndPassword, signInWithGoogle } from '../firebase/setup';
+import { registerWithEmailAndPassword, signInWithGoogle } from '../firebase/auth';
 
 export default function Signup() {
     const [credentials, setCredentials] = useState({});
@@ -59,6 +59,8 @@ export default function Signup() {
                     <span>Use Google Instead</span><img width='30px' className='mh3 pointer v-mid br-pill' src='/google.jfif' onClick={() => dispatch(setUser({
                         ...credentials,
                         loginWithEmail: false,
+                        loginWithGmail:true,
+                        reFresh:false,
                     }))} />
                     <NavLink to='/signin' className="f6 link dim black db">Sign In</NavLink>
                 </div>

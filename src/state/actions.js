@@ -1,6 +1,8 @@
 import { POST } from "../adapters/http.adapter";
-import { logInWithEmailAndPassword, signInWithGoogle } from "../firebase/setup";
+import { logInWithEmailAndPassword, signInWithGoogle } from "../firebase/auth";
+
 import { SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL } from "./types"
+
 
 
 export const setUser = credentials => async dispatch => {
@@ -11,8 +13,11 @@ export const setUser = credentials => async dispatch => {
         if (credentials.loginWithEmail) {
             data = await logInWithEmailAndPassword(credentials.email, credentials.password)
         }
-        else {
+        else if (credentials.loginWithGmail) {
             data = await signInWithGoogle();
+        }
+        else if (credentials.reFresh) {
+            data = credentials;
         }
         localStorage.setItem('hash', data.accessToken);
         // let data = await POST('/signin', credentials, false, false);
@@ -29,4 +34,6 @@ export const setUser = credentials => async dispatch => {
         dispatch({ type: SET_LOGIN_FAILED, payload: e });
     }
 }
+
+
 

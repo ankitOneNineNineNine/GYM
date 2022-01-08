@@ -4,7 +4,7 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
-import Navbar from './components/Navbar.component';
+import Navbar from './components/Navbar/main.component';
 import Nav1 from './components/Navbar/nav1.component';
 import Bio from './pages/Bio';
 import Coaching from './pages/coaching';

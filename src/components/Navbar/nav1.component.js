@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { authed } from '../../common/authed';
-import { logout } from '../../firebase/setup';
+import { logout } from '../../firebase/auth';
+
 
 
 const DropDown = () => {

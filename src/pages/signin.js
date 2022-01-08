@@ -54,6 +54,9 @@ export default function Signin() {
                     <span>Use Google Instead</span><img width='30px' className='mh3 pointer v-mid br-pill' src='/google.jfif' onClick={() => dispatch(setUser({
                         ...credentials,
                         loginWithEmail: false,
+                        loginWithGmail: true,
+                        reFresh:false,
+                        
                     }))} />
                     <NavLink to="/signup" className="f6 link dim black db">Sign up</NavLink>
                     <NavLink to="/forgot-password" className="f6 link dim black db">Forgot your password?</NavLink>

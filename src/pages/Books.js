@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Book from '../components/Book.component';
+import Book from '../components/Book/Book.component';
 
 
 export default function Books() {

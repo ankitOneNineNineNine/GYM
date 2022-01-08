@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import 'tachyons';
 import './App.css';
 import AppRouting from './app.routing';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/setup';
+import { useDispatch } from 'react-redux';
+import { setUser } from './state/actions';
+import Cart from './components/Cart/cart.component';
+
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    onAuthStateChanged(auth, (data) => {
+      if (data) {
+        dispatch(
+          setUser({
+            accessToken: data.accessToken,
+            email: data.email,
+            uid: data.uid,
+            displayName: data.displayName,
+            reFresh: true
+          }))
+      }
+    })
+  }, [])
+
+
   return (
     <>
       <AppRouting />
+      <Cart />
       <ToastContainer
         position="top-right"
         autoClose={5000}

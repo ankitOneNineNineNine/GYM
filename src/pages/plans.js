@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authed } from '../common/authed';
+import { showSucess } from '../common/toast';
 
 export default function Plans() {
     const user = useSelector(state => state.user)
+    const [selectedPlan, setSelectedPlan] = useState(null)
+    
+    const handleChange = (e) =>{
+        setSelectedPlan(e.target.value);
+    }
+
+    const train = (e) =>{
+         showSucess('You will get an email in Short!');
+    }
     return (
         <section className="mw7 center ph4">
             <h2 className="athelas ph3 ph0-l">Plans</h2>
@@ -50,13 +60,13 @@ export default function Plans() {
             <div className="pa4-l">
                 <form className="bg-black pa3 center ba white b--black-10">
                     <fieldset className="cf bn tc w-80 pa0 center">
-                        <legend className="f5 f4-ns mb3 white-80">Enter your details</legend>
+                        <legend className="f5 f4-ns mb3 white-80">Select your Plan</legend>
                         <div className="cf pa3">
-                            <label className="clip mt3" htmlFor="email-address">Email Address</label>
-                            <input className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" placeholder="Your Email Address" type="text" name="email-address" value="" id="email-address" />
+                            {/* <label className="clip mt3" htmlFor="email-address">Email Address</label>
+                            <input className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" placeholder="Your Email Address" type="text" name="email" value={user?.email} id="email" /> */}
 
                             <label className="clip pa2" htmlFor="plan">Choose a Plan</label>
-                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100">
+                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange = {handleChange}>
                                 <option defaultChecked disabled>Select Plan</option>
                                 <option>Personalized Plans</option>
                                 <option>Phone Consultation 30 minutes</option>
