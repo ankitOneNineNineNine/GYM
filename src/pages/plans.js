@@ -69,8 +69,8 @@ export default function Plans() {
                             <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange = {handleChange}>
                                 <option defaultChecked disabled>Select Plan</option>
                                 <option>Personalized Plans</option>
-                                <option>Phone Consultation 30 minutes</option>
-                                <option>Phone Consultation 1 hour</option>
+                                <option>Phone Consultation(30 mins)</option>
+                                <option>Phone Consultation(1 hr)</option>
                             </select>
 
 

@@ -21,6 +21,7 @@ export default function Navbar() {
 
     return (
         <nav className="pa2 pa3-ns">
+            
             <Nav1 />
             <div style={{ zIndex: 1000 }} className={"tc pb3 pv4 bg-white " + classforNav}>
                 <NavLink

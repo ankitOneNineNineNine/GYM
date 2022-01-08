@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { authed } from '../../common/authed';
 import { logout } from '../../firebase/auth';
+import Cart from '../Cart/cart.component';
+import CartIcon from './cartIcon.component';
 
 
 
@@ -19,6 +21,7 @@ const DropDown = () => {
                 Profile
             </li>
             <li className='pa2 grow' onClick={() => logout()}>Sign Out</li>
+
         </ul>
 
     )
@@ -27,14 +30,16 @@ const DropDown = () => {
 
 export default function Nav1() {
     const user = useSelector(state => state.user)
-    const [clicked, setClicked] = useState(false)
+    const [clicked, setClicked] = useState(false);
+    const [cartClicked, setCartClicked] = useState(false)
     const handleWindowClick = (e) => {
         const avatar = e?.srcElement?.attributes?.alt?.textContent;
-        if (avatar && avatar === 'avatar') {
+        if (avatar && avatar === 'avatar'||avatar === 'cart') {
             return;
         }
         else {
             setClicked(false)
+            setCartClicked(false)
         }
     }
     useEffect(() => {
@@ -56,12 +61,17 @@ export default function Nav1() {
             <div className='mh3'>
                 {
                     authed(user) ?
-                        <div className="tc center pointer" onClick={() => setClicked(!clicked)}>
-                            <img
-                                src="http://tachyons.io/img/logo.jpg"
-                                className="br-100 h2 w2 dib" alt="avatar" />
-                        </div>
-
+                        <>
+                            <CartIcon clicked={cartClicked} setClicked={setCartClicked} />
+                            {
+                                cartClicked && <Cart />
+                            }
+                            <div className="tc center pointer" onClick={() => setClicked(!clicked)}>
+                                <img
+                                    src="http://tachyons.io/img/logo.jpg"
+                                    className="br-100 h2 w2 dib" alt="avatar" />
+                            </div>
+                        </>
                         :
                         <>
                             <NavLink

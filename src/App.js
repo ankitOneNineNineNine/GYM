@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import 'tachyons';
 import './App.css';
@@ -9,9 +9,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/setup';
 import { useDispatch } from 'react-redux';
 import { setUser } from './state/actions';
-import Cart from './components/Cart/cart.component';
 
 function App() {
+  const [clicked, setClicked] = useState(false)
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (data) => {
@@ -31,8 +31,9 @@ function App() {
 
   return (
     <>
+  
       <AppRouting />
-      <Cart />
+    
       <ToastContainer
         position="top-right"
         autoClose={5000}
