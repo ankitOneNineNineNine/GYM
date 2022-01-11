@@ -1,7 +1,9 @@
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from './setup';
 
-export const updateCart = async (uid, { plan, price, expiry }) => {
+
+
+export const updateCart = async (uid, { plan, price }) => {
 
     const docRef = doc(db, 'users', uid)
     const docSnap = await getDoc(docRef);
@@ -47,11 +49,14 @@ export const addPlanToUser = async (uid, { plan, price, expiry }) => {
             }
         })
     }
+}
 
-
+export const getCartItems = async (uid) => {
+    const docRef = doc(db, 'users', uid);
+    const docSnap = await getDoc(docRef)
+    console.log(docSnap)
 
 }
 
-export const getUserItems = (uid) => {
-    console.log(db)
-}
+
+

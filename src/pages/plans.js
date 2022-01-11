@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authed } from '../common/authed';
 import { showError, showSucess } from '../common/toast';
+import { updateCart } from '../firebase/db';
 
 export default function Plans() {
     const user = useSelector(state => state.user)
@@ -10,17 +11,21 @@ export default function Plans() {
 
 
     const handleChange = (e) => {
-        setSelectedPlan(e.target.value);
+        let { selectedIndex, childNodes, value } = e.target;
+        setSelectedPlan({
+            plan: value,
+            price: childNodes[selectedIndex].getAttribute('price'),
+        });
     }
 
-    const letsTrain = (e) => {
+    const letsTrain = async (e) => {
         e.preventDefault();
-        console.log(user.user.email, selectedPlan)
-        if(!selectedPlan){
+
+        if (!selectedPlan.plan) {
             showError('Please Select the Plan!')
             return;
         }
-        showSucess('You will get an email in Short!');
+        await updateCart(user.user.uid, selectedPlan)
     }
     return (
         <section className="mw7 center ph4">
@@ -74,11 +79,11 @@ export default function Plans() {
                             <input className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" placeholder="Your Email Address" type="text" name="email" value={user?.email} id="email" /> */}
 
                             <label className="clip pa2" htmlFor="plan">Choose a Plan</label>
-                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange={handleChange}>
-                                <option selected disabled>Select Plan</option>
-                                <option>Personalized Plans</option>
-                                <option>Phone Consultation(30 mins)</option>
-                                <option>Phone Consultation(1 hr)</option>
+                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange={handleChange} defaultValue='select'>
+                                <option value='select' disabled>Select Plan</option>
+                                <option price={10000}>Personalized Plans</option>
+                                <option price={1000}>Phone Consultation(30 mins)</option>
+                                <option price={2000}>Phone Consultation(1 hr)</option>
                             </select>
 
 

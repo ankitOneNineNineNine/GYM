@@ -1,7 +1,8 @@
 import { collection, doc } from 'firebase/firestore';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { addPlanToUser } from '../../firebase/addPlans';
+import { showSucess } from '../../common/toast';
+import { addPlanToUser } from '../../firebase/db';
 import { db } from '../../firebase/setup';
 
 import Item from '../CartItem/cartItem.component';
@@ -17,8 +18,9 @@ export default function Cart(){
             expiry: 720
         },
     ]
-    const buy = () =>{
-        addPlanToUser(user.uid, cart[0])
+    const buy = async () =>{
+        await addPlanToUser(user.uid, cart[0]);
+        showSucess('Your Receipt will come in your email shortly!')
     }
     return (
         <div className='shadow-2 fixed pa2 bg-white' 

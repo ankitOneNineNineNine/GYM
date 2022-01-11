@@ -9,11 +9,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/setup';
 import { useDispatch } from 'react-redux';
 import { setUser } from './state/actions';
+import { getCartItems } from './firebase/db';
 
 function App() {
-  
+
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  const authChange = () => {
     onAuthStateChanged(auth, (data) => {
       if (data) {
         dispatch(
@@ -26,14 +28,23 @@ function App() {
           }))
       }
     })
+  }
+
+  const cartChange = () =>{
+    getCartItems();
+  }
+
+  useEffect(() => {
+    authChange();
+    cartChange();
   }, [])
 
 
   return (
     <>
-  
+
       <AppRouting />
-    
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
