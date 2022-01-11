@@ -8,38 +8,41 @@ import { db } from '../../firebase/setup';
 import Item from '../CartItem/cartItem.component';
 
 
-export default function Cart(){
-    const user = useSelector(state=>state.user.user);
-    
-    const cart = [
-        {
-            plan: 'Personalized Plan', 
-            price: 10000,
-            expiry: 720
-        },
-    ]
-    const buy = async () =>{
+export default function Cart() {
+    const user = useSelector(state => state.user.user);
+    const cart = useSelector(state => state.cart.item)
+    // const cart = [
+    //     {
+    //         plan: 'Personalized Plan',
+    //         price: 10000,
+    //         expiry: 720
+    //     },
+    // ]
+    console.log(cart)
+    const buy = async () => {
         await addPlanToUser(user.uid, cart[0]);
         showSucess('Your Receipt will come in your email shortly!')
     }
     return (
-        <div className='shadow-2 fixed pa2 bg-white' 
-            style = {{
+        <div className='shadow-2 fixed pa2 bg-white'
+            style={{
                 width: '300px',
                 top: '63px',
                 right: '7%'
             }}
         >
 
-             {/* <Item />    */}
-                
-          <Item plan = 'Personalized Plans' price = '10,000' />
-          <Item plan = 'Phone Consultation(30 mins)' price = '1000' />
- 
+            {/* <Item />    */}
+
+            {cart?.map((plan, i) => {
+                return (
+                    <Item key={i} plan={plan.plan} price={plan.price} />
+                )
+            })}
             <div className='pa2 flex mv1 bg-navy white justify-between shadow-2' >
                 <span>Total</span>
                 <div>
-                <span>Npr. 20,000</span>
+                    <span>Npr. 20,000</span>
                 </div>
 
             </div>

@@ -1,4 +1,5 @@
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { setCart } from '../state/actions';
 import { db } from './setup';
 
 
@@ -51,10 +52,27 @@ export const addPlanToUser = async (uid, { plan, price, expiry }) => {
     }
 }
 
-export const getCartItems = async (uid) => {
-    const docRef = doc(db, 'users', uid);
-    const docSnap = await getDoc(docRef)
-    console.log(docSnap)
+export const getUserData = async (uid, data = 'cart') => {
+    if (!uid) return;
+    try {
+        const docRef = doc(db, 'users', uid);
+        const docSnap = await getDoc(docRef)
+        if (data === 'cart') {
+            const cartData = docSnap.data()?.cart
+            if (cartData.length) {
+                setCart(cartData)
+            }
+        }
+        if (data === 'plans') {
+            const plansData = docSnap.data()?.plans
+            if (plansData.length)
+                console.log('plankoData', plansData)
+        }
+
+    }
+    catch (e) {
+        console.log(e)
+    }
 
 }
 

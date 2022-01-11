@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/setup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './state/actions';
 import { getCartItems } from './firebase/db';
 
@@ -30,13 +30,9 @@ function App() {
     })
   }
 
-  const cartChange = () =>{
-    getCartItems();
-  }
 
   useEffect(() => {
     authChange();
-    cartChange();
   }, [])
 
 

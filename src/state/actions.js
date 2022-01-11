@@ -37,9 +37,9 @@ export const setUser = credentials => async dispatch => {
 
 
 
-export const setCart = (item) => {
+export const setCart = (data) => {
     return {
         type: 'SET_CART',
-        payload: item
+        payload: data
     }
 }

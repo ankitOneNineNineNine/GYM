@@ -40,6 +40,7 @@ const initialCart = {
     item: [],
 }
 export const setCart = (state = initialCart, action) => {
+    console.log('asdfds', action)
     switch (action.type) {
         case SET_CART:
             return {

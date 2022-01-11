@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { authed } from '../../common/authed';
 import { logout } from '../../firebase/auth';
+import { getCartItems, getUserData } from '../../firebase/db';
 import Cart from '../Cart/cart.component';
 import CartIcon from './cartIcon.component';
 
@@ -44,10 +45,11 @@ export default function Nav1() {
     }
     useEffect(() => {
         window.addEventListener('click', handleWindowClick);
+        getUserData(user?.user?.uid, 'cart')
         return () => {
             window.removeEventListener('click', handleWindowClick)
         }
-    }, [])
+    }, [user.user])
     return (
         <div className='flex justify-around ma3'>
             <div>
