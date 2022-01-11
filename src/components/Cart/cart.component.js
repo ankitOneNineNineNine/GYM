@@ -21,9 +21,11 @@ export default function Cart(){
         addPlanToUser(user.uid, cart[0])
     }
     return (
-        <div className='shadow-2 pa2 fixed bottom-2 right-0 bg-white' 
+        <div className='shadow-2 fixed pa2 bg-white' 
             style = {{
                 width: '300px',
+                top: '63px',
+                right: '7%'
             }}
         >
 

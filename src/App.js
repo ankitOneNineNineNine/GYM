@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from './state/actions';
 
 function App() {
-  const [clicked, setClicked] = useState(false)
+  
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (data) => {

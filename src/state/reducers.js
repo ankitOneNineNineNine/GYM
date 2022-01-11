@@ -1,4 +1,4 @@
-import { SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL } from "./types"
+import { SET_CART, SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL } from "./types"
 
 const initialUserState = {
     user: null,
@@ -34,3 +34,20 @@ export const setUser = (state = initialUserState, action) => {
             return state
     }
 }
+
+
+const initialCart = {
+    item: [],
+}
+export const setCart = (state = initialCart, action) => {
+    switch (action.type) {
+        case SET_CART:
+            return {
+                ...state,
+                item: [...state.item, action.payload]
+            }
+            break;
+        default:
+            return state;
+    }
+} 

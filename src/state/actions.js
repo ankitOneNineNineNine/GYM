@@ -37,3 +37,9 @@ export const setUser = credentials => async dispatch => {
 
 
 
+export const setCart = (item) => {
+    return {
+        type: 'SET_CART',
+        payload: item
+    }
+}

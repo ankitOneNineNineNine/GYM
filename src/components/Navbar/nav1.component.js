@@ -34,7 +34,7 @@ export default function Nav1() {
     const [cartClicked, setCartClicked] = useState(false)
     const handleWindowClick = (e) => {
         const avatar = e?.srcElement?.attributes?.alt?.textContent;
-        if (avatar && avatar === 'avatar'||avatar === 'cart') {
+        if (avatar && avatar === 'avatar' || avatar === 'cart') {
             return;
         }
         else {
@@ -62,14 +62,18 @@ export default function Nav1() {
                 {
                     authed(user) ?
                         <>
-                            <CartIcon clicked={cartClicked} setClicked={setCartClicked} />
-                            {
-                                cartClicked && <Cart />
-                            }
-                            <div className="tc center pointer" onClick={() => setClicked(!clicked)}>
-                                <img
-                                    src="http://tachyons.io/img/logo.jpg"
-                                    className="br-100 h2 w2 dib" alt="avatar" />
+                            <div className="flex justify-between tc center pointer">
+                                <div onClick={() => setClicked(!clicked)} >
+                                    <img
+                                        src="http://tachyons.io/img/logo.jpg"
+                                        className="br-100 h2 w2 dib" alt="avatar"
+                                    />
+
+                                </div>
+                                <CartIcon clicked={cartClicked} setClicked={setCartClicked} />
+                                {
+                                    cartClicked && <Cart />
+                                }
                             </div>
                         </>
                         :

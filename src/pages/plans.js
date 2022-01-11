@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authed } from '../common/authed';
-import { showSucess } from '../common/toast';
+import { showError, showSucess } from '../common/toast';
 
 export default function Plans() {
     const user = useSelector(state => state.user)
     const [selectedPlan, setSelectedPlan] = useState(null)
-    
-    const handleChange = (e) =>{
+
+
+
+    const handleChange = (e) => {
         setSelectedPlan(e.target.value);
     }
 
-    const train = (e) =>{
-         showSucess('You will get an email in Short!');
+    const letsTrain = (e) => {
+        e.preventDefault();
+        console.log(user.user.email, selectedPlan)
+        if(!selectedPlan){
+            showError('Please Select the Plan!')
+            return;
+        }
+        showSucess('You will get an email in Short!');
     }
     return (
         <section className="mw7 center ph4">
@@ -66,8 +74,8 @@ export default function Plans() {
                             <input className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" placeholder="Your Email Address" type="text" name="email" value={user?.email} id="email" /> */}
 
                             <label className="clip pa2" htmlFor="plan">Choose a Plan</label>
-                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange = {handleChange}>
-                                <option defaultChecked disabled>Select Plan</option>
+                            <select className="f6 pa2 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100" onChange={handleChange}>
+                                <option selected disabled>Select Plan</option>
                                 <option>Personalized Plans</option>
                                 <option>Phone Consultation(30 mins)</option>
                                 <option>Phone Consultation(1 hr)</option>
@@ -77,7 +85,7 @@ export default function Plans() {
                         </div>
                         {
                             authed(user) ?
-                                <input className="ml3 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Let's Train"></input>
+                                <input className="ml0 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Add to Cart" onClick={letsTrain}></input>
                                 :
                                 <p>Please Sign In first!</p>
                         }

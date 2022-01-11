@@ -10,9 +10,9 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger';
-import { setUser } from './state/reducers';
+import { setCart, setUser } from './state/reducers';
 
-const rootReducer = combineReducers({ user: setUser })
+const rootReducer = combineReducers({ user: setUser, cart: setCart })
 const logger = createLogger();
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk))
