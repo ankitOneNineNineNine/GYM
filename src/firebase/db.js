@@ -8,21 +8,25 @@ export const updateCart = async (uid, { plan, price }, method = 'add') => {
 
     const docRef = doc(db, 'users', uid)
     const docSnap = await getDoc(docRef);
+
     let bought = Date.now();
     if (docSnap.exists()) {
+
         if (method === 'delete') {
+
             await updateDoc(docRef, {
                 cart: arrayRemove({
                     plan, price
                 })
             })
-            return;
         }
-        await updateDoc(docRef, {
-            cart: arrayUnion({
-                plan, price,
+        else{
+            await updateDoc(docRef, {
+                cart: arrayUnion({
+                    plan, price,
+                })
             })
-        })
+        }
     }
     else {
         await setDoc(docRef, {
@@ -33,7 +37,7 @@ export const updateCart = async (uid, { plan, price }, method = 'add') => {
         })
     }
 }
-export const addPlanToUser = async (uid, { plan, price, expiry }) => {
+export const addPlanToUser = async (uid, { plan, price }) => {
 
     const docRef = doc(db, 'users', uid)
     const docSnap = await getDoc(docRef);
@@ -43,9 +47,11 @@ export const addPlanToUser = async (uid, { plan, price, expiry }) => {
             plans: arrayUnion({
                 plan, price,
                 bought: new Date(bought),
-                expiry: new Date(bought + expiry * 3600000)
+                expiry: 'Calculating'
             })
         })
+
+
     }
     else {
         await setDoc(docRef, {
@@ -53,11 +59,12 @@ export const addPlanToUser = async (uid, { plan, price, expiry }) => {
                 plan,
                 price,
                 bought: new Date(bought),
-                expiry: new Date(bought + expiry * 3600000)
+                expiry: 'Calculating'
 
             }
         })
     }
+    return;
 }
 
 export const getUserData = async (uid, data = 'cart') => {
@@ -71,7 +78,7 @@ export const getUserData = async (uid, data = 'cart') => {
         }
         if (data === 'plans') {
             const plansData = docSnap.data()?.plans;
-            return plansData?.length? plansData: []
+            return plansData?.length ? plansData : []
         }
 
     }

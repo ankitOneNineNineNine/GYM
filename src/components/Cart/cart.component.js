@@ -15,6 +15,8 @@ export default function Cart() {
     const cart = useSelector(state => state.cart.item)
     const dispatch = useDispatch();
     const [selectedPlans, setSelectedPlans] = useState([])
+
+
     const deleteFromCart = async (item) => {
         let p = cart.filter(c => c.plan !== item.plan && c.price !== item.price);
         await updateCart(user.uid, item, 'delete');
@@ -25,15 +27,9 @@ export default function Cart() {
     const handleSelectPlan = (e) => {
         const plan = e.target.getAttribute('plan');
         const price = e.target.getAttribute('price');
-        let expiry = 0;
-        if (plan === 'Phone Consultation(30 mins)') {
-            expiry = 0.5
-        }
-        else if (plan === 'Phone Consultation(1 hr)') {
-            expiry = 1
-        }
+
         if (e.target.checked) {
-            setSelectedPlans([...selectedPlans, { plan, price, expiry }])
+            setSelectedPlans([...selectedPlans, { plan, price }])
         }
         else {
             let p = selectedPlans.filter(s => s.plan !== plan && s.price !== price);
@@ -42,11 +38,12 @@ export default function Cart() {
     }
 
     const buy = async () => {
-        selectedPlans.forEach(async plan => {
-            await addPlanToUser(user.uid, plan);
-            deleteFromCart(plan)
-        })
-        showSucess('Your Receipt will come in your email shortly!')
+
+        
+            // addPlanToUser(user.uid, selectedPlans[0]);
+            deleteFromCart(selectedPlans[0])
+        
+        // showSucess('Your Receipt will come in your email shortly!')
     }
     return (
         <div className='shadow-2 fixed pa2 bg-white'
@@ -74,7 +71,11 @@ export default function Cart() {
 
             </div>
             <div className='tc mv1'>
-                <button className='f6 link pointer dim ph3 center pv2 mb2 dib white bg-navy' onClick={buy}>Buy</button>
+                {
+                    cart?.length ?
+                        <button className='f6 link pointer dim ph3 center pv2 mb2 dib white bg-navy' onClick={buy}>Buy</button>
+                        : null
+                }
             </div>
         </div>
     )
