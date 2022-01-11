@@ -13,14 +13,16 @@ export const updateCart = async (uid, { plan, price }, method = 'add') => {
     if (docSnap.exists()) {
 
         if (method === 'delete') {
-
+            // console.log(plan, price)
+            // let a = docSnap.data().cart.findIndex(p => p.plan === plan && p.price === price)
+            // console.log(a)
             await updateDoc(docRef, {
                 cart: arrayRemove({
                     plan, price
                 })
             })
         }
-        else{
+        else {
             await updateDoc(docRef, {
                 cart: arrayUnion({
                     plan, price,

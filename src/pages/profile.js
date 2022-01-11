@@ -29,7 +29,7 @@ export default function Profile() {
             </div>
 
             <div className='w-80'>
-                <h2 className='mh5'>My Plans</h2>
+                <h2 className='mh5 tc'>My Plans</h2>
                 <div className='flex flex-wrap justify-around'>
                     {!plans?.length && 'No Plans Bought Yet!'}
                     {

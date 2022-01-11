@@ -77,7 +77,7 @@ export default function Nav1() {
                             <div className="flex justify-between tc center pointer">
                                 <div onClick={() => setClicked(!clicked)} >
                                     <img
-                                        src="http://tachyons.io/img/logo.jpg"
+                                        src="/trainer.jpg"
                                         className="br-100 h2 w2 dib" alt="avatar"
                                     />
 

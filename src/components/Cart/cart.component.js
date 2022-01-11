@@ -2,7 +2,7 @@ import { collection, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { normalize } from '../../common/normalize';
-import { showSucess } from '../../common/toast';
+import { showError, showSucess } from '../../common/toast';
 import { addPlanToUser, updateCart } from '../../firebase/db';
 import { db } from '../../firebase/setup';
 import { setCart } from '../../state/actions';
@@ -16,20 +16,23 @@ export default function Cart() {
     const dispatch = useDispatch();
     const [selectedPlans, setSelectedPlans] = useState([])
 
-
+    let updC = [];
     const deleteFromCart = async (item) => {
-        let p = cart.filter(c => c.plan !== item.plan && c.price !== item.price);
+        let arr = updC.length ? updC : cart
+        let p = arr.filter(c => c.plan !== item.plan && c.price !== item.price);
+        updC = p;
         await updateCart(user.uid, item, 'delete');
         dispatch(setCart({ unset: true, payload: p }))
 
     }
+
 
     const handleSelectPlan = (e) => {
         const plan = e.target.getAttribute('plan');
         const price = e.target.getAttribute('price');
 
         if (e.target.checked) {
-            setSelectedPlans([...selectedPlans, { plan, price }])
+            setSelectedPlans([...selectedPlans, { plan, price: +price }])
         }
         else {
             let p = selectedPlans.filter(s => s.plan !== plan && s.price !== price);
@@ -38,11 +41,17 @@ export default function Cart() {
     }
 
     const buy = async () => {
+        if (!selectedPlans?.length) {
+            showError('Please select from cart!');
+            return;
+        }
 
-        
-            // addPlanToUser(user.uid, selectedPlans[0]);
-            deleteFromCart(selectedPlans[0])
-        
+        for await (let plans of selectedPlans) {
+            await addPlanToUser(user.uid, plans);
+            await deleteFromCart(plans);
+
+        }
+
         // showSucess('Your Receipt will come in your email shortly!')
     }
     return (
