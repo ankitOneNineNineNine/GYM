@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { authed } from '../../common/authed';
 import { logout } from '../../firebase/auth';
 import { getCartItems, getUserData } from '../../firebase/db';
+import { setCart } from '../../state/actions';
 import Cart from '../Cart/cart.component';
 import CartIcon from './cartIcon.component';
 
 
 
 const DropDown = () => {
+    const navigate = useNavigate();
     return (
         <ul
             style={{
@@ -18,7 +20,7 @@ const DropDown = () => {
             }}
             className='list pointer br2 shadow-3 pa2 absolute right-0 bg-white'>
 
-            <li className='pa2 grow'>
+            <li className='pa2 grow' onClick={() => navigate('/profile')}>
                 Profile
             </li>
             <li className='pa2 grow' onClick={() => logout()}>Sign Out</li>
@@ -31,21 +33,29 @@ const DropDown = () => {
 
 export default function Nav1() {
     const user = useSelector(state => state.user)
+    const cart = useSelector(state => state.cart.item)
     const [clicked, setClicked] = useState(false);
-    const [cartClicked, setCartClicked] = useState(false)
+    const [cartClicked, setCartClicked] = useState(false);
+    const dispatch = useDispatch();
+
     const handleWindowClick = (e) => {
         const avatar = e?.srcElement?.attributes?.alt?.textContent;
+
         if (avatar && avatar === 'avatar' || avatar === 'cart') {
             return;
         }
         else {
             setClicked(false)
-            setCartClicked(false)
+            // setCartClicked(false)
         }
     }
     useEffect(() => {
         window.addEventListener('click', handleWindowClick);
-        getUserData(user?.user?.uid, 'cart')
+        getUserData(user?.user?.uid, 'cart').then(data => {
+            if (data && data.length) {
+                dispatch(setCart(data))
+            }
+        })
         return () => {
             window.removeEventListener('click', handleWindowClick)
         }
@@ -72,7 +82,7 @@ export default function Nav1() {
                                     />
 
                                 </div>
-                                <CartIcon clicked={cartClicked} setClicked={setCartClicked} />
+                                <CartIcon clicked={cartClicked} setClicked={setCartClicked} length={cart?.length} />
                                 {
                                     cartClicked && <Cart />
                                 }

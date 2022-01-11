@@ -1,15 +1,23 @@
-import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { setCart } from '../state/actions';
 import { db } from './setup';
 
 
 
-export const updateCart = async (uid, { plan, price }) => {
+export const updateCart = async (uid, { plan, price }, method = 'add') => {
 
     const docRef = doc(db, 'users', uid)
     const docSnap = await getDoc(docRef);
     let bought = Date.now();
     if (docSnap.exists()) {
+        if (method === 'delete') {
+            await updateDoc(docRef, {
+                cart: arrayRemove({
+                    plan, price
+                })
+            })
+            return;
+        }
         await updateDoc(docRef, {
             cart: arrayUnion({
                 plan, price,
@@ -59,14 +67,11 @@ export const getUserData = async (uid, data = 'cart') => {
         const docSnap = await getDoc(docRef)
         if (data === 'cart') {
             const cartData = docSnap.data()?.cart
-            if (cartData.length) {
-                setCart(cartData)
-            }
+            return cartData?.length ? cartData : [];
         }
         if (data === 'plans') {
-            const plansData = docSnap.data()?.plans
-            if (plansData.length)
-                console.log('plankoData', plansData)
+            const plansData = docSnap.data()?.plans;
+            return plansData?.length? plansData: []
         }
 
     }

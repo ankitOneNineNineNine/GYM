@@ -1,4 +1,4 @@
-import { SET_CART, SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL } from "./types"
+import { SET_CART, SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL, UNSET_CART } from "./types"
 
 const initialUserState = {
     user: null,
@@ -40,15 +40,21 @@ const initialCart = {
     item: [],
 }
 export const setCart = (state = initialCart, action) => {
-    console.log('asdfds', action)
     switch (action.type) {
         case SET_CART:
             return {
                 ...state,
-                item: [...state.item, action.payload]
+                item: [...state.item, ...action.payload]
             }
             break;
+
+        case UNSET_CART:
+            return {
+                ...state,
+                item: action.payload
+            }
         default:
             return state;
     }
+
 } 

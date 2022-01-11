@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authed } from '../common/authed';
 import { showError, showSucess } from '../common/toast';
 import { updateCart } from '../firebase/db';
+import { setCart } from '../state/actions';
 
 export default function Plans() {
     const user = useSelector(state => state.user)
-    const [selectedPlan, setSelectedPlan] = useState(null)
-
-
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [dis, setDis] = useState(false)
+    const cart = useSelector(state => state.cart.item)
+    let dispatch = useDispatch();
 
     const handleChange = (e) => {
         let { selectedIndex, childNodes, value } = e.target;
         setSelectedPlan({
             plan: value,
-            price: childNodes[selectedIndex].getAttribute('price'),
+            price: +childNodes[selectedIndex].getAttribute('price'),
         });
     }
 
-    const letsTrain = async (e) => {
+    const addToCart = async (e) => {
         e.preventDefault();
-
+        setDis(true);
         if (!selectedPlan.plan) {
             showError('Please Select the Plan!')
+            setDis(false);
             return;
         }
-        await updateCart(user.user.uid, selectedPlan)
+        await updateCart(user.user.uid, selectedPlan);
+        showSucess('Added to Cart');
+        setDis(false);
+        window.scrollTo({
+            top: 0,
+            scroll: 'smooth'
+        })
+        dispatch(setCart([selectedPlan]))
     }
     return (
         <section className="mw7 center ph4">
@@ -90,7 +100,7 @@ export default function Plans() {
                         </div>
                         {
                             authed(user) ?
-                                <input className="ml0 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Add to Cart" onClick={letsTrain}></input>
+                                <input className="ml0 f5-l button-reset fl pv3 tc bn bg-animate bg-black-70 hover-bg-white green pointer w-100 w-25-m w-20-l" type="submit" value="Add to Cart" disabled={dis} onClick={addToCart}></input>
                                 :
                                 <p>Please Sign In first!</p>
                         }

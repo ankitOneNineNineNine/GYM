@@ -2,3 +2,4 @@ export const SET_LOGIN_SUCCESSFUL = "SET_LOGIN_SUCCESSFUL";
 export const SET_LOGIN_PENDING = "SET_LOGIN_PENDING";
 export const SET_LOGIN_FAILED = "SET_LOGIN_FAILED";
 export const SET_CART = 'SET_CART';
+export const UNSET_CART = 'UNSET_CART'

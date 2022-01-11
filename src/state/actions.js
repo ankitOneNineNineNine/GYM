@@ -1,7 +1,7 @@
 import { POST } from "../adapters/http.adapter";
 import { logInWithEmailAndPassword, signInWithGoogle } from "../firebase/auth";
 
-import { SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL } from "./types"
+import { SET_CART, SET_LOGIN_FAILED, SET_LOGIN_PENDING, SET_LOGIN_SUCCESSFUL, UNSET_CART } from "./types"
 
 
 
@@ -38,8 +38,15 @@ export const setUser = credentials => async dispatch => {
 
 
 export const setCart = (data) => {
+    if (data.unset) {
+        return {
+            type: UNSET_CART,
+            payload: data.payload
+        }
+    }
     return {
-        type: 'SET_CART',
+        type: SET_CART,
         payload: data
     }
 }
+

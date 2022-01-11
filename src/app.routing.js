@@ -13,6 +13,7 @@ import Plans from './pages/plans';
 import Signin from './pages/signin';
 import Signup from './pages/signup';
 import Books from './pages/Books'
+import Profile from './pages/profile';
 
 
 const FormRoute = ({ children }) => {
@@ -42,6 +43,7 @@ export default function AppRouting() {
                 <Route path='/coaching' element={<NavRoute><Coaching /></NavRoute>} />
                 <Route path='/coaching/plans' element={<NavRoute><Plans /></NavRoute>} />
                 <Route path='/books' element={<NavRoute><Books /></NavRoute>} />
+                <Route path='/profile' element={<NavRoute><Profile /></NavRoute>} />
                 <Route path='/signin' element={<FormRoute><Signin /></FormRoute>} />
                 <Route path='/signup' element={<FormRoute><Signup /></FormRoute>} />
             </Routes>
