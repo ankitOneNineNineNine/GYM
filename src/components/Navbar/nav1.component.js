@@ -15,10 +15,10 @@ const DropDown = () => {
     return (
         <ul
             style={{
-                right: '20%',
+                right: '25%',
                 top: '5%',
             }}
-            className='list pointer br2 shadow-3 pa2 absolute right-0 bg-white'>
+            className='list pointer br2 shadow-3 pa2 absolute bg-white'>
 
             <li className='pa2 grow' onClick={() => navigate('/profile')}>
                 Profile

@@ -91,4 +91,10 @@ export const getUserData = async (uid, data = 'cart') => {
 }
 
 
-
+export const getAllData = async () => {
+    const collectionRef = collection(db, 'users');
+    const collectionSnap = await getDocs(collectionRef);
+    let result = {};
+    collectionSnap.forEach(doc => result[doc.id] = doc.data());
+    return result;
+}
